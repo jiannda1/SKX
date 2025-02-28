@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的书法之旅</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>墨韵芳华</h1>
+            <p class="subtitle">✿ 记录指尖流淌的诗意时光 ✿</p>
+        </header>
+
+        <main>
+            <p class="decorative-quote">「执笔写意，以墨寄情」</p>
+            
+            <section class="gallery">
+                <h2>心随笔动</h2>
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <img src="9ea863ec87840cae9e34c13938e8801.jpg" alt="书法作品1">
+                    </div>
+                    <div class="photo-item">
+                        <img src="61d9f36bf55446a776673de0488fd8a.jpg" alt="书法作品2">
+                    </div>
+                    <div class="photo-item">
+                        <img src="64b96947d2c6472d4a02961cbcd8420.jpg" alt="书法作品3">
+                    </div>
+                    <div class="photo-item">
+                        <img src="786cabdb9c3b12a6c2ad76c98181569.jpg" alt="书法作品4">
+                    </div>
+                    <div class="photo-item">
+                        <img src="3560a87cf75e90c50f444647997244d.jpg" alt="书法作品5">
+                    </div>
+                    <div class="photo-item">
+                        <img src="64764db001e967d33ff578f21e48df3.jpg" alt="书法作品6">
+                    </div>
+                    <div class="photo-item">
+                        <img src="b24911d304990d03075cea9f08227e0.jpg" alt="书法作品7">
+                    </div>
+                    <div class="photo-item">
+                        <img src="c9d1919d74120fd35c735256a329697.jpg" alt="书法作品8">
+                    </div>
+                </div>
+            </section>
+
+            <section class="journey">
+                <h2>书写心情</h2>
+                <div class="journal-entry">
+                    <h3>初遇书法的美好</h3>
+                    <p>在这个数字化的时代，能够静下心来，执笔写字，是一种难得的享受...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 添加模态框 -->
+    <div class="modal" id="imageModal">
+        <span class="close-button">❌</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- 添加 JavaScript -->
+    <script>
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeButton = document.querySelector('.close-button');
+        const images = document.querySelectorAll('.photo-item img');
+
+        // 为每张图片添加点击事件
+        images.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.classList.add('show');
+                modalImg.src = this.src;
+            });
+        });
+
+        // 点击关闭按钮关闭模态框
+        closeButton.addEventListener('click', function() {
+            modal.classList.remove('show');
+        });
+
+        // 点击模态框背景也可以关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        // 按 ESC 键也可以关闭模态框
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                modal.classList.remove('show');
+            }
+        });
+
+        // 为照片添加渐入动画延迟
+        document.querySelectorAll('.photo-item').forEach((item, index) => {
+            item.style.setProperty('--item-index', index);
+        });
+    </script>
+</body>
+</html> 
