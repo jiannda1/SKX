@@ -1,0 +1,958 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Ma Shan Zheng', cursive;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.floating-hearts, .floating-stars, .floating-bubbles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 3em;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 .heart {
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.love-message {
+    font-size: 1.1em;
+    color: #ff6b6b;
+    margin-top: 15px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.card:hover::before {
+    transform: translateX(100%);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.giraffe-card {
+    background: linear-gradient(135deg, #fff5e6 0%, #fff 100%);
+}
+
+.minion-card {
+    background: linear-gradient(135deg, #fffde7 0%, #fff 100%);
+}
+
+.doraemon-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+}
+
+.ping-pong-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+}
+
+h2 {
+    color: #4a90e2;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h2 i {
+    font-size: 1.2em;
+    color: #ff6b6b;
+}
+
+p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.interactive-element {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.love-button {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+}
+
+.love-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.giraffe-animation {
+    height: 200px;
+    background: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f992.svg') no-repeat center;
+    background-size: contain;
+    animation: float 3s ease-in-out infinite;
+}
+
+.giraffe-spots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.giraffe-spots span {
+    width: 20px;
+    height: 20px;
+    background: #ffd700;
+    border-radius: 50%;
+    animation: spotPulse 2s ease-in-out infinite;
+}
+
+.giraffe-spots span:nth-child(2n) {
+    animation-delay: 0.5s;
+}
+
+.giraffe-spots span:nth-child(3n) {
+    animation-delay: 1s;
+}
+
+.minion-animation {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.minion-body {
+    width: 240px;
+    height: 280px;
+    background: #FFE13B;
+    border-radius: 120px 120px 100px 100px;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+    box-shadow: -5px 5px 15px rgba(0,0,0,0.2);
+}
+
+.minion-face {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+}
+
+.minion-hair {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.minion-hair::before,
+.minion-hair::after {
+    content: '';
+    position: absolute;
+    background: #000;
+    width: 3px;
+    height: 25px;
+}
+
+.minion-hair span {
+    width: 3px;
+    height: 25px;
+    background: #000;
+    transform-origin: bottom;
+}
+
+.minion-hair span:nth-child(1) { transform: rotate(-25deg); left: 30px; }
+.minion-hair span:nth-child(2) { transform: rotate(-15deg); left: 45px; }
+.minion-hair span:nth-child(3) { transform: rotate(-5deg); left: 60px; }
+.minion-hair span:nth-child(4) { transform: rotate(5deg); left: 75px; }
+.minion-hair span:nth-child(5) { transform: rotate(15deg); left: 90px; }
+.minion-hair span:nth-child(6) { transform: rotate(25deg); left: 105px; }
+
+.minion-goggle {
+    position: absolute;
+    width: 200px;
+    height: 90px;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.minion-goggle-strap {
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    background: #333;
+    top: 65px;
+    left: 0;
+}
+
+.minion-goggle-eye {
+    width: 90px;
+    height: 90px;
+    background: #fff;
+    border: 8px solid #888;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.minion-goggle-eye::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: #FFE13B;
+    bottom: 0;
+    left: 0;
+}
+
+.minion-goggle-eye::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #964B00;
+    border-radius: 50%;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 5px #FFE13B;
+}
+
+.minion-goggle-shine {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    top: 20%;
+    right: 20%;
+}
+
+.minion-mouth {
+    width: 70px;
+    height: 35px;
+    background: #fff;
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-5deg);
+    border-radius: 0 0 35px 35px;
+    overflow: hidden;
+}
+
+.minion-mouth::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 15px;
+    background: #333;
+    bottom: 0;
+    left: 0;
+}
+
+.minion-overalls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45%;
+    background: #5B9BD5;
+    border-radius: 0 0 100px 100px;
+    overflow: hidden;
+}
+
+.minion-pocket {
+    position: absolute;
+    width: 70px;
+    height: 60px;
+    background: #6BA4D7;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    border: 2px solid #4A8CC8;
+}
+
+.minion-pocket::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L2 12l10 10 10-10z"/></svg>') no-repeat center / contain;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L2 12l10 10 10-10z"/></svg>') no-repeat center / contain;
+}
+
+.minion-strap {
+    position: absolute;
+    width: 25px;
+    height: 80%;
+    background: #5B9BD5;
+    top: -20px;
+}
+
+.minion-strap.left {
+    left: 25%;
+    transform: rotate(5deg);
+}
+
+.minion-strap.right {
+    right: 25%;
+    transform: rotate(-5deg);
+}
+
+.minion-button {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #333;
+    border-radius: 50%;
+    top: -5px;
+}
+
+.minion-button.left {
+    left: -3px;
+}
+
+.minion-button.right {
+    right: -3px;
+}
+
+.minion-legs {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.minion-leg {
+    width: 35px;
+    height: 25px;
+    background: #000;
+    border-radius: 0 0 10px 10px;
+}
+
+.minion-arms {
+    position: absolute;
+    width: 100%;
+    bottom: 30%;
+}
+
+.minion-arm {
+    position: absolute;
+    width: 30px;
+    height: 80px;
+    background: #FFE13B;
+    border-radius: 15px;
+}
+
+.minion-arm.left {
+    left: -20px;
+    transform: rotate(15deg);
+}
+
+.minion-arm.right {
+    right: -20px;
+    transform: rotate(-15deg);
+}
+
+.doraemon-animation {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.doraemon-body {
+    width: 200px;
+    height: 200px;
+    background: #00a0e9;
+    border-radius: 50%;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+    box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2);
+}
+
+.doraemon-face {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+.doraemon-eyes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 35px;
+    padding: 0 20px;
+}
+
+.doraemon-eye {
+    width: 44px;
+    height: 50px;
+    background: white;
+    border-radius: 48%;
+    position: relative;
+    border: 2px solid #333;
+    transform: rotate(5deg);
+}
+
+.doraemon-eye:last-child {
+    transform: rotate(-5deg);
+}
+
+.doraemon-eye::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 22px;
+    background: #333;
+    border-radius: 50%;
+}
+
+.doraemon-nose {
+    width: 34px;
+    height: 34px;
+    background: #e60012;
+    border-radius: 50%;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #333;
+}
+
+.doraemon-nose::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+.doraemon-mouth {
+    width: 140px;
+    height: 80px;
+    border: 2px solid #333;
+    border-radius: 0 0 70px 70px;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.doraemon-mouth::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: #ff0000;
+    border-radius: 50%;
+}
+
+.doraemon-whiskers {
+    position: absolute;
+    width: 180px;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.doraemon-whiskers-left,
+.doraemon-whiskers-right {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+}
+
+.doraemon-whiskers-left {
+    left: -30px;
+}
+
+.doraemon-whiskers-right {
+    right: -30px;
+}
+
+.doraemon-whiskers-left::before,
+.doraemon-whiskers-left::after,
+.doraemon-whiskers-right::before,
+.doraemon-whiskers-right::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: #333;
+}
+
+.doraemon-whiskers-left::before {
+    top: 15px;
+    transform: rotate(-15deg);
+}
+
+.doraemon-whiskers-left::after {
+    bottom: 15px;
+    transform: rotate(15deg);
+}
+
+.doraemon-whiskers-right::before {
+    top: 15px;
+    transform: rotate(15deg);
+}
+
+.doraemon-whiskers-right::after {
+    bottom: 15px;
+    transform: rotate(-15deg);
+}
+
+.doraemon-bell {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 45px;
+    background: #ffd700;
+    border-radius: 50%;
+    border: 2px solid #333;
+    z-index: 2;
+}
+
+.doraemon-bell::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+}
+
+.doraemon-bell::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+}
+
+.doraemon-collar {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background: #e60012;
+    border-radius: 12px;
+    border: 2px solid #333;
+}
+
+.ping-pong-animation {
+    height: 200px;
+    background: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3d3.svg') no-repeat center;
+    background-size: contain;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.ping-pong-balls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.ping-pong-balls span {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    animation: ballBounce 1s ease-in-out infinite;
+}
+
+.ping-pong-balls span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.ping-pong-balls span:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.message {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 15px;
+}
+
+.message p {
+    color: #ff6b6b;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.hearts {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hearts span {
+    font-size: 1.5em;
+    animation: heartFloat 2s ease-in-out infinite;
+}
+
+.hearts span:nth-child(2) { animation-delay: 0.4s; }
+.hearts span:nth-child(3) { animation-delay: 0.8s; }
+.hearts span:nth-child(4) { animation-delay: 1.2s; }
+.hearts span:nth-child(5) { animation-delay: 1.6s; }
+
+.final-message {
+    margin-top: 20px;
+    min-height: 30px;
+}
+
+.typing-text {
+    display: inline-block;
+    border-right: 2px solid #ff6b6b;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes spotPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes smile {
+    0%, 100% { transform: translateX(-50%) scaleX(1); }
+    50% { transform: translateX(-50%) scaleX(1.2); }
+}
+
+@keyframes ballBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes heartFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(10deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #ff6b6b; }
+}
+
+@keyframes doraemonMagic {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    75% { transform: scale(1.1) rotate(-5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes bellRing {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(10deg); }
+    75% { transform: translateX(-50%) rotate(-10deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .minion-body, .doraemon-body {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+.puppy-animation {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.puppy-body {
+    width: 200px;
+    height: 200px;
+    background: #c4946b;
+    border-radius: 50%;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+    box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2);
+}
+
+.puppy-face {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    background: #e6b89c;
+    border-radius: 50%;
+}
+
+.puppy-ears {
+    position: absolute;
+    width: 100%;
+    top: -40px;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.puppy-ear {
+    width: 60px;
+    height: 80px;
+    background: #c4946b;
+    border-radius: 30px;
+    position: relative;
+}
+
+.puppy-ear.left {
+    transform: rotate(-30deg);
+    transform-origin: bottom right;
+}
+
+.puppy-ear.right {
+    transform: rotate(30deg);
+    transform-origin: bottom left;
+}
+
+.puppy-eyes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 60px;
+    padding: 0 20px;
+}
+
+.puppy-eye {
+    width: 30px;
+    height: 35px;
+    background: #4a4a4a;
+    border-radius: 50%;
+    position: relative;
+}
+
+.puppy-eye::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+}
+
+.puppy-nose {
+    width: 30px;
+    height: 20px;
+    background: #333;
+    border-radius: 15px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.puppy-mouth {
+    width: 80px;
+    height: 40px;
+    border: 3px solid #333;
+    border-radius: 0 0 40px 40px;
+    border-top: 0;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.puppy-tail {
+    position: absolute;
+    bottom: -20px;
+    right: 30px;
+    width: 15px;
+    height: 60px;
+    background: #c4946b;
+    border-radius: 10px;
+    transform-origin: top center;
+    animation: wagTail 1s ease-in-out infinite;
+}
+
+.puppy-card {
+    background: linear-gradient(135deg, #ffecd2 0%, #fff 100%);
+}
+
+@keyframes wagTail {
+    0%, 100% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+}
+
+@keyframes puppyJump {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+} 
